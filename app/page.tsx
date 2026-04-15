@@ -1,28 +1,36 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, ChevronRight, Menu } from "lucide-react";
 
 // --- Sample Data based on your PDF ---
-const announcements = [
-  { id: "1", tag: "通用", unit: "訓育組", title: "115 西北高中交流入取名單", date: "2026-04-16" }, // Based on your PDF mockups
+type Announcement = {
+  id: string;
+  tag: string;
+  unit: string;
+  title: string;
+  date: string;
+};
+
+const announcements: Announcement[] = [
+  { id: "1", tag: "通用", unit: "訓育組", title: "115 西北高中交流入取名單", date: "2026-04-16" }, 
   { id: "2", tag: "高三", unit: "教務處", title: "115學年度升學模擬考時程表", date: "2026-04-15" },
 ];
 
-const zones = [
+const zones: string[] = [
   "新生專區", "升學專區", "獎助學金專區", "線上請假專區", 
   "停課不停學專區", "防治校園霸凌專區", "資通安全維護專區"
-]; // Extracted from page 4 of the PDF
+];
 
 // --- Animations ---
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.1 } }
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 15 },
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
 };
