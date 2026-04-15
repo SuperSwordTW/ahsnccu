@@ -1,10 +1,11 @@
+// app/layout.tsx
 import type { Metadata } from "next";
-import { Noto_Sans_TC } from "next/font/google";
+import { LXGW_WenKai_TC } from "next/font/google";
 import "./globals.css";
 
-const notoSansTC = Noto_Sans_TC({ 
+const siteFont = LXGW_WenKai_TC({ 
   subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
+  weight: ["300", "400", "700"],
   variable: "--font-noto-sans-tc",
 });
 
@@ -20,7 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW">
-      <body className={`${notoSansTC.className} bg-neutral-50 text-neutral-900 antialiased`}>
+      {/* Changed bg-neutral-50 to bg-neutral-100 to give slightly more contrast against the white app container */}
+      <body className={`${siteFont.className} bg-neutral-100 text-neutral-900 antialiased`}>
         {children}
       </body>
     </html>
