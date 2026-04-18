@@ -11,7 +11,7 @@ import ZonesSection from "@/components/ZonesSection";
 import NavigationMenu from "@/components/NavigationMenu";
 import CalendarSection from "@/components/CalendarSection";
 
-const categories = ["全部公告", "國一", "國二", "國三", "高一", "高二", "高三"];
+const categories = ["全校", "國一", "國二", "國三", "高一", "高二", "高三"];
 
 // --- Animations ---
 const containerVariants: Variants = {
