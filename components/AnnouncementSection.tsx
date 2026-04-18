@@ -32,7 +32,21 @@ type Announcement = {
 
 const ITEMS_PER_PAGE = 6; // You can change how many items show per page here
 
-export default function AnnouncementSection() {
+const categoryKeywords: Record<string, string[]> = {
+  "全部公告": [], 
+  "國一": ["國一", "國中一年級", "七年級", "國中部新生"],
+  "國二": ["國二", "國中二年級", "八年級"],
+  "國三": ["國三", "國中三年級", "九年級", "會考", "免試入學"],
+  "高一": ["高一", "高中一年級", "十年級", "高中部新生"],
+  "高二": ["高二", "高中二年級", "十一年級", "選群"],
+  "高三": ["高三", "高中三年級", "十二年級", "學測", "分科", "繁星", "申請入學", "個申", "特選", "特殊選材"],
+};
+
+interface AnnouncementSectionProps {
+  selectedCategory: string;
+}
+
+export default function AnnouncementSection({ selectedCategory }: AnnouncementSectionProps) {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -77,20 +91,38 @@ export default function AnnouncementSection() {
 
   // Smart Search Logic
   const filteredAnnouncements = useMemo(() => {
-    if (!searchQuery.trim()) return announcements;
-    
-    const searchTerms = searchQuery.toLowerCase().split(/\s+/);
-    return announcements.filter((item) => {
-      const searchableText = `${item.title} ${item.content || ""} ${item.unit}`.toLowerCase();
-      return searchTerms.every((term) => searchableText.includes(term));
-    });
-  }, [announcements, searchQuery]);
+    let result = announcements;
+
+    // Filter by Category Button
+    if (selectedCategory !== "全部公告") {
+      // Get the keywords for the selected category, fallback to just the category name if not found
+      const keywords = categoryKeywords[selectedCategory] || [selectedCategory];
+      
+      result = result.filter((item) => {
+        const searchableText = `${item.tag || ""} ${item.title} ${item.content || ""}`.toLowerCase();
+        
+        // Return true if AT LEAST ONE keyword from the dictionary exists in the announcement text
+        return keywords.some((keyword) => searchableText.includes(keyword.toLowerCase()));
+      });
+    }
+
+    // Filter by Text Search Bar
+    if (searchQuery.trim()) {
+      const searchTerms = searchQuery.toLowerCase().split(/\s+/);
+      result = result.filter((item) => {
+        const searchableText = `${item.title} ${item.content || ""} ${item.unit}`.toLowerCase();
+        return searchTerms.every((term) => searchableText.includes(term));
+      });
+    }
+
+    return result;
+  }, [announcements, searchQuery, selectedCategory]);
 
   // --- Pagination Logic ---
   // Reset to page 1 whenever the user types a new search query
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery]);
+  }, [searchQuery, selectedCategory]);
 
   const totalPages = Math.ceil(filteredAnnouncements.length / ITEMS_PER_PAGE);
   const paginatedAnnouncements = filteredAnnouncements.slice(
