@@ -99,7 +99,8 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
       const keywords = categoryKeywords[selectedCategory] || [selectedCategory];
       
       result = result.filter((item) => {
-        const searchableText = `${item.tag || ""} ${item.title} ${item.content || ""}`.toLowerCase();
+        const attachmentNames = item.attach_file_link ? item.attach_file_link.map(a => a.name).join(" ") : "";
+        const searchableText = `${item.tag || ""} ${item.title} ${item.content || ""} ${attachmentNames}`.toLowerCase();
         
         // Return true if AT LEAST ONE keyword from the dictionary exists in the announcement text
         return keywords.some((keyword) => searchableText.includes(keyword.toLowerCase()));
@@ -110,7 +111,8 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
     if (searchQuery.trim()) {
       const searchTerms = searchQuery.toLowerCase().split(/\s+/);
       result = result.filter((item) => {
-        const searchableText = `${item.title} ${item.content || ""} ${item.unit}`.toLowerCase();
+        const attachmentNames = item.attach_file_link ? item.attach_file_link.map(a => a.name).join(" ") : "";
+        const searchableText = `${item.title} ${item.content || ""} ${item.unit} ${attachmentNames}`.toLowerCase();
         return searchTerms.every((term) => searchableText.includes(term));
       });
     }

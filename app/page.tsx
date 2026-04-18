@@ -98,7 +98,7 @@ export default function MobileFrontPage() {
 
             {/* SECTION: Calendar */}
             <motion.div id="calendar" variants={itemVariants} className="scroll-mt-24 md:col-span-1 md:col-start-1 lg:col-span-12">
-              <CalendarSection />
+              <CalendarSection category={selectedCategory} />
             </motion.div>
           </motion.div>
         </main>
