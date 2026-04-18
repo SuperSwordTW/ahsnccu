@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { motion, Variants, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, Variants, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Menu } from "lucide-react"; // Removed ChevronDown
+import { ChevronRight, Menu, Search, X } from "lucide-react";
 import AnnouncementSection from "@/components/AnnouncementSection";
 import HeroSection from "@/components/HeroSection";
 import ZonesSection from "@/components/ZonesSection";
+import NavigationMenu from "@/components/NavigationMenu";
 
 const categories = ["全部公告", "國一", "國二", "國三", "高一", "高二", "高三"];
 
@@ -25,6 +26,9 @@ const itemVariants: Variants = {
 export default function MobileFrontPage() {
 
   const [selectedCategory, setSelectedCategory] = useState("全部公告");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="flex flex-col w-full bg-neutral-100 relative min-h-screen">
@@ -38,13 +42,26 @@ export default function MobileFrontPage() {
       >
         <header className="sticky top-0 z-30 w-full flex items-center justify-between p-5 md:px-10 bg-white/80 backdrop-blur-md border-b border-neutral-100 rounded-t-[40px]">
           <div className="flex flex-col">
-            <span className="text-xs tracking-widest text-neutral-500 mb-1">國立政治大學</span>
-            <h1 className="text-xl font-medium tracking-wide">附屬高級中學</h1>
+            <span className="text-xs tracking-widest text-neutral-500 mb-1">辛巴巴八魯比拉</span>
+            <h1 className="text-xl font-medium tracking-wide">政大附中</h1>
           </div>
-          <Button variant="ghost" size="icon" className="text-neutral-900">
-            <Menu className="w-6 h-6" />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-neutral-900" 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </Button>
         </header>
+
+        {/* Navigation Dropdown Menu */}
+        <NavigationMenu 
+          isOpen={isMenuOpen}
+          setIsOpen={setIsMenuOpen}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
 
         <main className="flex-1 p-4 md:px-8 md:py-10 space-y-8 w-full pt-8">
           
@@ -69,12 +86,12 @@ export default function MobileFrontPage() {
             className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12"
           >
             {/* SECTION: Announcements */}
-            <motion.div variants={itemVariants} className="md:col-span-1 lg:col-span-9 flex flex-col">
+            <motion.div id="announcements" variants={itemVariants} className="scroll-mt-24 md:col-span-1 lg:col-span-9 flex flex-col">
               <AnnouncementSection selectedCategory={selectedCategory} />
             </motion.div>
 
             {/* SECTION: Special Zones */}
-            <motion.div variants={itemVariants} className="md:col-span-1 lg:col-span-3 space-y-4">
+            <motion.div id="zones" variants={itemVariants} className="scroll-mt-24 md:col-span-1 lg:col-span-3 space-y-4">
               <ZonesSection />
             </motion.div>
           </motion.div>
