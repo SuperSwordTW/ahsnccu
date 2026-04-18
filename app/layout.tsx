@@ -10,7 +10,7 @@ const siteFont = LXGW_WenKai_TC({
 });
 
 export const metadata: Metadata = {
-  title: "國立政治大學 附屬高級中學",
+  title: "國立政治大學附屬高級中學",
   description: "政大附中學生入口網站",
 };
 

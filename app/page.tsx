@@ -9,6 +9,7 @@ import AnnouncementSection from "@/components/AnnouncementSection";
 import HeroSection from "@/components/HeroSection";
 import ZonesSection from "@/components/ZonesSection";
 import NavigationMenu from "@/components/NavigationMenu";
+import CalendarSection from "@/components/CalendarSection";
 
 const categories = ["全部公告", "國一", "國二", "國三", "高一", "高二", "高三"];
 
@@ -93,6 +94,11 @@ export default function MobileFrontPage() {
             {/* SECTION: Special Zones */}
             <motion.div id="zones" variants={itemVariants} className="scroll-mt-24 md:col-span-1 lg:col-span-3 space-y-4">
               <ZonesSection />
+            </motion.div>
+
+            {/* SECTION: Calendar */}
+            <motion.div id="calendar" variants={itemVariants} className="scroll-mt-24 md:col-span-1 md:col-start-1 lg:col-span-12">
+              <CalendarSection />
             </motion.div>
           </motion.div>
         </main>

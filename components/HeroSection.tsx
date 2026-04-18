@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Hachi_Maru_Pop } from "next/font/google";
+import { Kiwi_Maru } from "next/font/google";
 
-const hachiMaruPop = Hachi_Maru_Pop({
+const hachiMaruPop = Kiwi_Maru({
   weight: "400",
   subsets: ["latin"],
   display: "swap",

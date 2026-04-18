@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface NavigationMenuProps {
   isOpen: boolean;
@@ -25,16 +26,18 @@ export default function NavigationMenu({
   setSearchQuery
 }: Omit<NavigationMenuProps, 'onSearch'>) {
 
+  const router = useRouter();
+
   const handleGlobalSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
     
-    // Logic moved from page.tsx
-    console.log("Searching entire site for:", searchQuery);
-    alert(`Searching site for: ${searchQuery}`); 
+    // Navigate to a search results page with the query as a URL parameter
+    router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
     
-    // Optional: close menu after search
+    // Close the menu and optionally clear the input after searching
     setIsOpen(false); 
+    setSearchQuery("");
   };
 
   return (
