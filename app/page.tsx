@@ -24,32 +24,15 @@ const itemVariants: Variants = {
 };
 
 export default function MobileFrontPage() {
-  const { scrollY } = useScroll();
-  const smoothY = useSpring(scrollY, { stiffness: 100, damping: 20, restDelta: 0.001 });
-  
-  const heroY = useTransform(smoothY, [0, 350], ["0%", "-100%"]);
-  const heroOpacity = useTransform(smoothY, [0, 250], [1, 0]);
-  const heroScale = useTransform(smoothY, [0, 350], [1, 0.92]);
-  const heroBlur = useTransform(smoothY, [0, 300], ["blur(0px)", "blur(12px)"]);
-  const contentY = useTransform(smoothY, [0, 400], [80, 0]);
 
   return (
     <div className="flex flex-col w-full bg-neutral-100 relative min-h-screen">
       
       {/* --- HERO SECTION --- */}
-      <HeroSection 
-        heroY={heroY} 
-        heroOpacity={heroOpacity} 
-        heroScale={heroScale} 
-        heroBlur={heroBlur} 
-      />
-
-      {/* --- SCROLL SPACER --- */}
-      <div className="w-full h-[85vh]" />
+      <HeroSection />
 
       {/* --- MAIN CONTENT --- */}
       <motion.div 
-        style={{ y: contentY }}
         className="relative z-10 w-full bg-white rounded-t-[40px] shadow-[0_-15px_40px_rgba(0,0,0,0.06)] min-h-screen flex flex-col"
       >
         <header className="sticky top-0 z-30 w-full flex items-center justify-between p-5 md:px-10 bg-white/80 backdrop-blur-md border-b border-neutral-100 rounded-t-[40px]">
@@ -65,7 +48,7 @@ export default function MobileFrontPage() {
         <main className="flex-1 p-4 md:px-8 md:py-10 space-y-8 w-full pt-8">
           
           <nav className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            {["公告", "國/高中資訊", "專區"].map((item, i) => (
+            {["公告", "國一", "國二", "國三", "高一", "高二", "高三"].map((item, i) => (
               <Button key={i} variant={i === 0 ? "default" : "outline"} className={`rounded-full shrink-0 ${i===0 ? 'bg-neutral-900 text-white' : 'text-neutral-600 border-neutral-200'}`}>
                 {item}
               </Button>
@@ -109,7 +92,7 @@ export default function MobileFrontPage() {
         <footer className="p-6 mt-8 border-t border-neutral-200 bg-neutral-50">
           <div className="flex flex-col items-center justify-center space-y-2 text-xs text-neutral-400">
             <p>國立政治大學附屬高級中學 © {new Date().getFullYear()}</p>
-            <p>開發者: 林子宸、鄭宇宸、鄭宇翔</p>
+            <p>開發者: 林子宸、鄭宇宸、鄭宇翔、楊紹玄</p>
           </div>
         </footer>
       </motion.div>

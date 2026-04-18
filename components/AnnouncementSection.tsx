@@ -26,6 +26,7 @@ type Announcement = {
   content: string;
   attach_file_link?: Attachment[] | null; 
   imgs_links?: string[] | null;
+  is_hot: boolean;
   tag?: string; 
 };
 
@@ -47,6 +48,7 @@ export default function AnnouncementSection() {
       const { data, error } = await supabase
         .from("announcements")
         .select("*")
+        .order("is_hot", { ascending: false })
         .order("time", { ascending: false });
 
       if (error) {
@@ -59,6 +61,19 @@ export default function AnnouncementSection() {
 
     fetchAnnouncements();
   }, []);
+
+  useEffect(() => {
+    if (selectedAnnouncement) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup function to ensure scrolling is restored if the component unmounts
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedAnnouncement]);
 
   // Smart Search Logic
   const filteredAnnouncements = useMemo(() => {
