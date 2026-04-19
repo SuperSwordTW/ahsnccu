@@ -224,7 +224,10 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
                 >
                   <ChevronLeft className="w-4 h-4 mr-1" /> 上一頁
                 </Button>
-                <span className="text-sm text-neutral-500 font-medium">
+                <span 
+                  className="text-[14px] text-neutral-500 font-medium"
+                  style={{ WebkitTextSizeAdjust: "none", textSizeAdjust: "none" }}
+                >
                   第 {currentPage} 頁，共 {totalPages} 頁
                 </span>
                 <Button 

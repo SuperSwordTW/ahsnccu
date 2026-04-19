@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-TW" style={{ fontSize: "100%" }}>
+    <html lang="zh-TW" style={{ fontSize: "110%" }}>
       {/* Changed bg-neutral-50 to bg-neutral-100 to give slightly more contrast against the white app container */}
       <body className={`${siteFont.className} bg-neutral-100 text-neutral-900 antialiased`}>
         {children}

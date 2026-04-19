@@ -67,14 +67,14 @@ export default function NavigationMenu({
   useEffect(() => {
     const currentSize = document.documentElement.style.fontSize;
     if (currentSize === '120%') setFontSizeLevel(1);
-    else if (currentSize === '140%') setFontSizeLevel(2);
+    else if (currentSize === '130%') setFontSizeLevel(2);
     else setFontSizeLevel(0);
   }, [isOpen]);
 
   const cycleFontSize = () => {
     const nextLevel = (fontSizeLevel + 1) % 3;
     setFontSizeLevel(nextLevel);
-    const sizeMap = ['100%', '120%', '140%'];
+    const sizeMap = ['110%', '120%', '130%'];
     document.documentElement.style.fontSize = sizeMap[nextLevel];
   };
 
