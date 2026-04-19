@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ type Announcement = {
 const ITEMS_PER_PAGE = 6; // You can change how many items show per page here
 
 const categoryKeywords: Record<string, string[]> = {
-  "全部公告": [], 
+  "全校": [], 
   "國一": ["國一", "國中一年級", "七年級", "國中部新生"],
   "國二": ["國二", "國中二年級", "八年級"],
   "國三": ["國三", "國中三年級", "九年級", "會考", "免試入學"],
@@ -54,6 +54,16 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
   
   // --- Pagination State ---
   const [currentPage, setCurrentPage] = useState(1);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    
+    // Add a slight delay to allow React to render the new list before scrolling
+    setTimeout(() => {
+      sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
 
   // Fetch from Supabase on mount
   useEffect(() => {
@@ -94,7 +104,7 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
     let result = announcements;
 
     // Filter by Category Button
-    if (selectedCategory !== "全部公告") {
+    if (selectedCategory !== "全校") {
       // Get the keywords for the selected category, fallback to just the category name if not found
       const keywords = categoryKeywords[selectedCategory] || [selectedCategory];
       
@@ -134,7 +144,7 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
 
   return (
     <>
-      <div className="flex flex-col md:flex-row md:items-center justify-between px-1 gap-4 mb-4">
+      <div ref={sectionRef} className="flex flex-col md:flex-row md:items-center justify-between px-1 gap-4 mb-4 scroll-mt-6">
         <h2 className="text-lg font-medium flex items-center gap-2 text-neutral-800 whitespace-nowrap">
           <span className="w-2 h-2 rounded-full bg-neutral-400" /> 最新公告
         </h2>
@@ -213,7 +223,7 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
                   className="rounded-full text-neutral-600 border-neutral-200"
                 >
@@ -225,7 +235,7 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
                   className="rounded-full text-neutral-600 border-neutral-200"
                 >
