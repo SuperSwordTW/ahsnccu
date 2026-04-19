@@ -100,8 +100,11 @@ export default function CalendarSection({ category = "全校" }: { category?: st
         lastDay = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${new Date(currentYear, currentMonth + 1, 0).getDate()}`;
       }
 
+      const isMidSchool = ["國一", "國二", "國三"].includes(category);
+      const tableName = isMidSchool ? "calendar-mid" : "calendar";
+
       let query = supabase
-        .from("calendar")
+        .from(tableName)
         .select("*")
         .gte("date", firstDay)
         .lte("date", lastDay);
