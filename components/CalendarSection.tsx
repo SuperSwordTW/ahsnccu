@@ -18,7 +18,7 @@ interface CalendarEvent {
   applicable_grades: string;
 }
 
-export default function CalendarSection({ category = "全部公告" }: { category?: string }) {
+export default function CalendarSection({ category = "全校" }: { category?: string }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState<Record<string, { title: string; color: string }[]>>({});
   const [isMobile, setIsMobile] = useState(false);
@@ -106,8 +106,7 @@ export default function CalendarSection({ category = "全部公告" }: { categor
         .gte("date", firstDay)
         .lte("date", lastDay);
 
-      // Apply category filter if not "全部公告"
-      if (category !== "全部公告") {
+      if (category !== "全校") {
         // Use .or() to include events specifically for this grade OR for the whole school ("全校").
         // We use .ilike to catch strings that contain multiple grades (e.g., "高一、高二").
         query = query.or(`applicable_grades.ilike.%${category}%,applicable_grades.eq.全校`);
@@ -138,9 +137,15 @@ export default function CalendarSection({ category = "全部公告" }: { categor
   }, [currentYear, currentMonth, currentDate, isMobile, category]);
 
   return (
-    <Card className="p-6 bg-white border-neutral-100 shadow-sm rounded-3xl w-full">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-medium tracking-wide text-neutral-900">
+    <section className="w-full flex flex-col gap-4">
+      <div className="flex items-center justify-between px-1 mt-4 md:mt-0">
+        <h2 className="text-lg font-medium flex items-center gap-2 text-neutral-800">
+          <span className="w-2 h-2 rounded-none bg-neutral-400 transform rotate-45" /> 行事曆
+        </h2>
+      </div>
+      <Card className="p-6 bg-white border-neutral-100 shadow-sm rounded-3xl w-full">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-medium tracking-wide text-neutral-900">
           {currentYear}年 {monthNames[currentMonth]}
         </h2>
         <div className="flex gap-2">
@@ -184,23 +189,83 @@ export default function CalendarSection({ category = "全部公告" }: { categor
                 {item.dayNum}
               </span>
               <div className="flex flex-col gap-1 mt-1">
-                {dayEvents.map((event, i) => (
-                  <div
-                    key={i}
-                    onClick={() => setSelectedEvent({ title: event.title, dateStr: item.dateStr, color: event.color })}
-                    className={`px-2 py-1 rounded-md border cursor-pointer transition-all active:scale-95 hover:brightness-95 ${event.color}`}
-                    title={event.title}
-                  >
-                    <div className="text-[10px] line-clamp-2 leading-tight whitespace-normal">
-                      {event.title}
-                    </div>
+                {isMobile ? (
+                  <div className="flex flex-wrap gap-1 justify-center mt-1">
+                    {dayEvents.map((event, i) => (
+                      <div
+                        key={`dot-${i}`}
+                        className={`w-2 h-2 rounded-full border ${event.color}`}
+                      />
+                    ))}
                   </div>
-                ))}
+                ) : (
+                  dayEvents.map((event, i) => (
+                    <div
+                      key={i}
+                      onClick={() => setSelectedEvent({ title: event.title, dateStr: item.dateStr, color: event.color })}
+                      className={`px-2 py-1 rounded-md border cursor-pointer transition-all active:scale-95 hover:brightness-95 ${event.color}`}
+                      title={event.title}
+                    >
+                      <div className="text-[10px] line-clamp-2 leading-tight whitespace-normal">
+                        {event.title}
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Mobile Agenda View */}
+      {isMobile && (
+        <div className="mt-6 flex flex-col gap-4">
+          <h3 className="text-sm font-semibold text-neutral-500 px-2">本週行程</h3>
+          {gridItems.filter(item => item.type === "day" && (events[item.dateStr] || []).length > 0).length === 0 ? (
+            <div className="text-sm text-neutral-400 text-center py-6 bg-neutral-50 rounded-xl">本週無行程</div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {gridItems.map((item) => {
+                if (item.type === "blank") return null;
+                const dayEvents = events[item.dateStr] || [];
+                if (dayEvents.length === 0) return null;
+
+                const isToday =
+                  item.dayNum === new Date().getDate() &&
+                  item.dateObj.getMonth() === new Date().getMonth() &&
+                  item.dateObj.getFullYear() === new Date().getFullYear();
+
+                return (
+                  <div key={`agenda-${item.dateStr}`} className="flex gap-4 items-start p-2">
+                    <div className="flex flex-col items-center min-w-[3rem] pt-1">
+                      <span className="text-xs font-medium text-neutral-400 mb-1">{weekDays[item.dateObj.getDay()]}</span>
+                      <span className={`text-lg font-bold flex items-center justify-center w-8 h-8 rounded-full ${
+                        isToday ? "bg-neutral-900 text-white" : "text-neutral-700"
+                      }`}>
+                        {item.dayNum}
+                      </span>
+                    </div>
+                    <div className="flex flex-col gap-2 flex-1">
+                      {dayEvents.map((event, i) => (
+                        <div
+                          key={i}
+                          onClick={() => setSelectedEvent({ title: event.title, dateStr: item.dateStr, color: event.color })}
+                          className={`p-3 rounded-xl border cursor-pointer transition-all active:scale-95 ${event.color}`}
+                        >
+                          <div className="text-sm leading-relaxed font-medium">
+                            {event.title}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Event Details Modal */}
       {selectedEvent && (
@@ -239,6 +304,7 @@ export default function CalendarSection({ category = "全部公告" }: { categor
           </div>
         </div>
       )}
-    </Card>
+      </Card>
+    </section>
   );
 }

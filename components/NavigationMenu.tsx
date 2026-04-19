@@ -16,6 +16,7 @@ interface NavigationMenuProps {
 const menuItems = [
   { label: "最新公告", href: "#announcements" },
   { label: "常用專區", href: "#zones" },
+  { label: "行事曆", href: "#calendar" },
   { label: "認識政附", href: "/intro" }
 ];
 

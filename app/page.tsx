@@ -26,7 +26,7 @@ const itemVariants: Variants = {
 
 export default function MobileFrontPage() {
 
-  const [selectedCategory, setSelectedCategory] = useState("全部公告");
+  const [selectedCategory, setSelectedCategory] = useState("全校");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
