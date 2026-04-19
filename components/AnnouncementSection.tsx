@@ -199,7 +199,7 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
                     </span>
                   </div>
                   
-                  <CardTitle className="text-[0.8125rem] font-medium leading-tight text-neutral-800 line-clamp-2 py-0.5">
+                  <CardTitle className="text-[0.8125rem] font-medium leading-tight text-neutral-800 py-0.5">
                     {item.title}
                   </CardTitle>
                   

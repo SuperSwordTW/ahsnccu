@@ -74,7 +74,7 @@ export default function NavigationMenu({
   const cycleFontSize = () => {
     const nextLevel = (fontSizeLevel + 1) % 3;
     setFontSizeLevel(nextLevel);
-    const sizeMap = ['110%', '120%', '140%'];
+    const sizeMap = ['100%', '120%', '140%'];
     document.documentElement.style.fontSize = sizeMap[nextLevel];
   };
 
