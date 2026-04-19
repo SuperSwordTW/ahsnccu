@@ -58,7 +58,7 @@ export default function HeroSection() {
             opacity: 0, 
             transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
           }}
-          className="fixed top-0 left-0 flex flex-col items-center justify-start min-h-screen w-full p-6 text-center bg-white z-50 origin-top overflow-hidden"
+          className="fixed top-0 left-0 flex flex-col items-center justify-center h-[100dvh] w-full p-6 text-center bg-white z-50 origin-top overflow-hidden"
         >
           {/* --- FAINT BACKGROUND IMAGE --- */}
           <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.15]"> 
@@ -75,7 +75,7 @@ export default function HeroSection() {
           </div>
 
           {/* --- CONTENT LAYER --- */}
-          <div className="relative z-10 flex flex-col items-center space-y-6 md:space-y-8 pt-[20vh]">
+          <div className="relative z-10 flex flex-col items-center space-y-4 md:space-y-8">
             <motion.div 
               initial={{ opacity: 0, y: 30 }} 
               animate={{ opacity: 1, y: 0 }} 
@@ -93,7 +93,7 @@ export default function HeroSection() {
             
             <motion.h2 
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-1xl md:text-3xl lg:text-5xl tracking-[0.3em] text-neutral-600"
+              className="text-xl md:text-3xl lg:text-5xl tracking-[0.3em] text-neutral-600"
             >
               國立政治大學附屬高級中學
             </motion.h2>
