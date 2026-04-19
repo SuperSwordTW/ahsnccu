@@ -18,7 +18,8 @@ const menuItems = [
   { label: "最新公告", href: "#announcements" },
   { label: "常用專區", href: "#zones" },
   { label: "行事曆", href: "#calendar" },
-  { label: "認識政附", href: "/intro" }
+  { label: "認識政附", href: "/intro" },
+  { label: "傑出校友", href: "/alumni"}
 ];
 
 export default function NavigationMenu({
