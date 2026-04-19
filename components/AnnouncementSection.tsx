@@ -228,7 +228,7 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
                   className="text-[14px] text-neutral-500 font-medium"
                   style={{ WebkitTextSizeAdjust: "none", textSizeAdjust: "none" }}
                 >
-                  第 {currentPage} 頁，共 {totalPages} 頁
+                  {currentPage} / {totalPages}
                 </span>
                 <Button 
                   variant="outline" 
