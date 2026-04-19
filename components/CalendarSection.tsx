@@ -161,10 +161,13 @@ export default function CalendarSection({ category = "全校" }: { category?: st
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-px bg-neutral-200 rounded-xl overflow-hidden border border-neutral-200">
+      <div 
+        className="grid grid-cols-7 gap-px bg-neutral-200 rounded-xl overflow-hidden border border-neutral-200"
+        style={{ WebkitTextSizeAdjust: "none", textSizeAdjust: "none" }}
+      >
         {/* Days Header */}
         {weekDays.map((day) => (
-          <div key={day} className="bg-neutral-50 py-3 text-center text-xs font-medium text-neutral-500">
+          <div key={day} className="bg-neutral-50 py-3 text-center text-[12px] font-medium text-neutral-500">
             {day}
           </div>
         ))}
@@ -185,7 +188,7 @@ export default function CalendarSection({ category = "全校" }: { category?: st
           return (
             <div key={item.dateStr} className="bg-white min-h-[100px] p-2 border-t border-neutral-100 flex flex-col gap-1 transition-colors hover:bg-neutral-50">
               <span
-                className={`text-sm inline-flex items-center justify-center w-7 h-7 rounded-full ${
+                className={`text-[14px] inline-flex items-center justify-center w-[28px] h-[28px] shrink-0 rounded-full ${
                   isToday ? "bg-neutral-900 text-white font-medium" : "text-neutral-700"
                 }`}
               >
