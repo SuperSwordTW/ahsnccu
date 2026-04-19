@@ -43,8 +43,12 @@ export default function MobileFrontPage() {
       >
         <header className="sticky top-0 z-30 w-full flex items-center justify-between p-5 md:px-10 bg-white/80 backdrop-blur-md border-b border-neutral-100 rounded-t-[40px]">
           <div className="flex flex-col">
-            <span className="text-xs tracking-widest text-neutral-500 mb-1">辛巴巴八魯比拉</span>
-            <h1 className="text-xl font-medium tracking-wide">政大附中</h1>
+            <h1 
+              className="text-xl font-medium tracking-wide cursor-pointer transition-opacity hover:opacity-80"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              政大附中
+            </h1>
           </div>
           <Button 
             variant="ghost" 
