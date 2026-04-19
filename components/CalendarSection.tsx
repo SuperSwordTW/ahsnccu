@@ -209,7 +209,7 @@ export default function CalendarSection({ category = "全校" }: { category?: st
                       className={`px-2 py-1 rounded-md border cursor-pointer transition-all active:scale-95 hover:brightness-95 ${event.color}`}
                       title={event.title}
                     >
-                      <div className="text-[10px] line-clamp-2 leading-tight whitespace-normal">
+                      <div className="text-[0.625rem] line-clamp-2 leading-tight whitespace-normal">
                         {event.title}
                       </div>
                     </div>
@@ -297,10 +297,10 @@ export default function CalendarSection({ category = "全校" }: { category?: st
             
             {/* Modal Body */}
             <div className="p-6">
-              <div className={`inline-block px-2 py-1 mb-4 rounded-md border text-[11px] font-medium ${selectedEvent.color}`}>
+              <div className={`inline-block px-2 py-1 mb-4 rounded-md border text-[0.6875rem] font-medium ${selectedEvent.color}`}>
                 詳細內容
               </div>
-              <p className="text-neutral-800 text-[15px] leading-relaxed break-words whitespace-pre-wrap">
+              <p className="text-neutral-800 text-[0.9375rem] leading-relaxed break-words whitespace-pre-wrap">
                 {selectedEvent.title}
               </p>
             </div>

@@ -1,6 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import { LXGW_WenKai_TC } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 
 const siteFont = LXGW_WenKai_TC({ 
@@ -20,10 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-TW">
+    <html lang="zh-TW" style={{ fontSize: "110%" }}>
       {/* Changed bg-neutral-50 to bg-neutral-100 to give slightly more contrast against the white app container */}
       <body className={`${siteFont.className} bg-neutral-100 text-neutral-900 antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );

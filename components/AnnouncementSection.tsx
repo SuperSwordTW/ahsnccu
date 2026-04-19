@@ -179,37 +179,32 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
             {paginatedAnnouncements.map((item) => (
               <Card 
                 key={item.id} 
-                className="border-neutral-200 rounded-xl shadow-none hover:bg-neutral-50 transition-colors cursor-pointer"
+                className="p-0 border-neutral-200 rounded-xl shadow-none hover:bg-neutral-50 transition-colors cursor-pointer"
                 onClick={() => setSelectedAnnouncement(item)}
               >
-                {/* Reduced padding from p-4 to p-3 */}
-                <CardHeader className="p-3">
-                  {/* Reduced bottom margin to mb-1.5 */}
-                  <div className="flex items-center justify-between mb-1.5">
-                    {/* Reduced gap between tags to gap-1.5 */}
-                    <div className="flex gap-1.5">
+                <CardHeader className="p-2 gap-2 space-y-0">
+                  <div className="flex items-center justify-between mb-0.5">
+                    <div className="flex gap-1">
                       {item.tag && (
-                        <span className="text-[10px] border border-neutral-200 px-1.5 py-0.5 rounded text-neutral-500 leading-none">
+                        <span className="text-[10px] border border-neutral-200 px-1 py-0.5 rounded text-neutral-500 leading-none">
                           {item.tag}
                         </span>
                       )}
-                      <span className="text-[10px] bg-neutral-100 px-1.5 py-0.5 rounded text-neutral-500 leading-none">
+                      <span className="text-[10px] bg-neutral-100 px-1 py-0.5 rounded text-neutral-500 leading-none">
                         {item.unit}
                       </span>
                     </div>
-                    {/* Shrunk date text slightly */}
-                    <span className="text-[10px] text-neutral-400">
+                    <span className="text-[10px] text-neutral-400 leading-none pt-0.5">
                       {new Date(item.time).toLocaleDateString('zh-TW')}
                     </span>
                   </div>
                   
-                  {/* Reduced title from text-base to text-sm, added line-clamp-2 to prevent stretching */}
-                  <CardTitle className="text-sm font-medium leading-snug text-neutral-800 line-clamp-2">
+                  <CardTitle className="text-[0.8125rem] font-medium leading-tight text-neutral-800 line-clamp-2 py-0.5">
                     {item.title}
                   </CardTitle>
                   
                   {item.attach_file_link && item.attach_file_link.length > 0 && (
-                     <div className="flex items-center text-[11px] text-neutral-400 mt-1.5">
+                     <div className="flex items-center text-[10px] text-neutral-400 mt-0.5 leading-none">
                        <Paperclip className="w-3 h-3 mr-1" /> 含附件 ({item.attach_file_link.length})
                      </div>
                   )}

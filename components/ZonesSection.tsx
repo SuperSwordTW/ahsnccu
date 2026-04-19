@@ -13,7 +13,7 @@ const zones = [
   { name: "國中校務系統", url: "https://school.tp.edu.tw/Login.action?schNo=380301" },
   { name: "學習歷程", url: "https://e-portfolio.cooc.tp.edu.tw/Portal.do" },
   { name: "自主學習", url: "https://sschool.tp.edu.tw/Login.action?schNo=380301&type=learning" },
-  { name: "公文系統", url: "https://ahs.speedodm.com/SPEED30/Account/Login" }
+  { name: "公文系統", url: "https://ahs.speedodm.com/SPEED30/Account/Login" },
 ];
 
 // Define variants if you want them to be specific to this component
@@ -34,7 +34,7 @@ export default function ZonesSection() {
       <Card className="border-neutral-200 rounded-2xl shadow-none overflow-hidden">
         <div className="flex flex-col divide-y divide-neutral-100">
           {/* Using .map on all or sliced zones depending on your UI preference */}
-          {zones.slice(0, 5).map((zone, idx) => (
+          {zones.slice(0, 6).map((zone, idx) => (
             <a 
                 key={idx} 
                 href={zone.url}

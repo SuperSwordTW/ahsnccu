@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, ChevronRight } from "lucide-react";
+import { Search, ChevronRight, Type } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
@@ -28,6 +29,54 @@ export default function NavigationMenu({
 }: Omit<NavigationMenuProps, 'onSearch'>) {
 
   const router = useRouter();
+  const [fontSizeLevel, setFontSizeLevel] = useState(0);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close menu on outside click or scroll
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleOutsideClick = (e: MouseEvent) => {
+      // If the click is inside the menu, do nothing
+      if (menuRef.current && menuRef.current.contains(e.target as Node)) {
+        return;
+      }
+      
+      // Ignore clicks on the header so the main menu toggle button doesn't conflict
+      if ((e.target as Element).closest('header')) {
+        return;
+      }
+
+      setIsOpen(false);
+    };
+
+    const handleScroll = () => {
+      setIsOpen(false);
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isOpen, setIsOpen]);
+
+  // Sync state with DOM when the menu opens
+  useEffect(() => {
+    const currentSize = document.documentElement.style.fontSize;
+    if (currentSize === '120%') setFontSizeLevel(1);
+    else if (currentSize === '130%') setFontSizeLevel(2);
+    else setFontSizeLevel(0);
+  }, [isOpen]);
+
+  const cycleFontSize = () => {
+    const nextLevel = (fontSizeLevel + 1) % 3;
+    setFontSizeLevel(nextLevel);
+    const sizeMap = ['110%', '120%', '130%'];
+    document.documentElement.style.fontSize = sizeMap[nextLevel];
+  };
 
   const handleGlobalSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +94,7 @@ export default function NavigationMenu({
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          ref={menuRef}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
@@ -77,6 +127,21 @@ export default function NavigationMenu({
                 <ChevronRight className="w-4 h-4 text-neutral-300" />
               </a>
             ))}
+            
+            <div className="my-2 border-t border-neutral-100"></div>
+
+            <button
+              onClick={cycleFontSize}
+              className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 rounded-xl transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Type className="w-4 h-4 text-neutral-500" />
+                切換字體大小
+              </div>
+              <span className="text-xs text-neutral-400">
+                {fontSizeLevel === 0 ? '標準' : fontSizeLevel === 1 ? '放大' : '特大'}
+              </span>
+            </button>
           </nav>
         </motion.div>
       )}
