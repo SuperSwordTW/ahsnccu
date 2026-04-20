@@ -83,7 +83,8 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
         .from("announcements")
         .select("*")
         .order("is_hot", { ascending: false })
-        .order("time", { ascending: false });
+        .order("time", { ascending: false })
+        .limit(100);
 
       if (error) {
         console.error("Error fetching announcements:", error);

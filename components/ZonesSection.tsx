@@ -1,6 +1,7 @@
 import { motion, Variants } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const zones = [
   { 
@@ -47,9 +48,11 @@ export default function ZonesSection() {
             >
                 <div className="flex items-center gap-3">
                     {zone.icon && (
-                        <img 
+                        <Image 
                             src={zone.icon} 
                             alt="" 
+                            width={20}
+                            height={20}
                             className={`w-5 h-5 object-contain ${zone.highlight ? 'drop-shadow-sm' : ''}`} 
                         />
                     )}

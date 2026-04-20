@@ -13,7 +13,16 @@ const siteFont = LXGW_WenKai_TC({
 
 export const metadata: Metadata = {
   title: "國立政治大學附屬高級中學",
-  description: "政大附中學生入口網站",
+  description: "政大附中學生網站",
+  metadataBase: process.env.VERCEL_URL ? new URL(`https://${process.env.VERCEL_URL}`) : new URL(`http://localhost:${process.env.PORT || 3000}`),
+  openGraph: {
+    title: "國立政治大學附屬高級中學",
+    description: "政大附中學生網站",
+    url: "/",
+    siteName: "政大附中學生網站",
+    locale: "zh_TW",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

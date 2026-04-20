@@ -5,11 +5,14 @@ import { motion, Variants, useScroll, useTransform, useSpring, AnimatePresence }
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, Menu, Search, X } from "lucide-react";
-import AnnouncementSection from "@/components/AnnouncementSection";
+import dynamic from 'next/dynamic';
 import HeroSection from "@/components/HeroSection";
-import ZonesSection from "@/components/ZonesSection";
 import NavigationMenu from "@/components/NavigationMenu";
-import CalendarSection from "@/components/CalendarSection";
+
+// Optimization: Dynamically import components below the fold or reliant on heavy fetching
+const AnnouncementSection = dynamic(() => import("@/components/AnnouncementSection"), { ssr: false });
+const ZonesSection = dynamic(() => import("@/components/ZonesSection"));
+const CalendarSection = dynamic(() => import("@/components/CalendarSection"), { ssr: false });
 
 const categories = ["全校", "高三", "高二", "高一", "國三", "國二", "國一"];
 
