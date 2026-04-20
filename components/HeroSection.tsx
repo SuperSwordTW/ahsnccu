@@ -98,18 +98,15 @@ export default function HeroSection() {
               國立政治大學附屬高級中學
             </motion.h2>
             
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[1px] h-12 md:h-20 bg-neutral-400 transform rotate-[25deg] my-4" 
-            />
+            <br/>
             
             <motion.h1 
               initial={{ opacity: 0, y: 30 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ delay: 0.9, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className={`${hachiMaruPop.className} text-3xl md:text-6xl lg:text-8xl tracking-[0.2em] text-neutral-900`}
+              className={`${hachiMaruPop.className} text-2xl md:text-5xl lg:text-7xl tracking-[0.2em] text-neutral-900`}
             >
-              政大附中<span className="text-2xl md:text-4xl lg:text-5xl">非</span>官方網站
+              政大附中<span className="text-sm md:text-lg lg:text-xl">非</span>官方網站
             </motion.h1>
 
             <motion.div 
