@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { LXGW_WenKai_TC } from "next/font/google";
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import "./globals.css";
 
 const siteFont = LXGW_WenKai_TC({ 
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={`${siteFont.className} bg-neutral-100 text-neutral-900 antialiased`}>
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
