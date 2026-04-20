@@ -51,6 +51,16 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState<Announcement | null>(null);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<Announcement[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 500); // 500ms debounce
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
   
   // --- Pagination State ---
   const [currentPage, setCurrentPage] = useState(1);
@@ -99,36 +109,60 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
     };
   }, [selectedAnnouncement]);
 
-  // Smart Search Logic
-  const filteredAnnouncements = useMemo(() => {
-    let result = announcements;
-
-    // Filter by Category Button
-    if (selectedCategory !== "全校") {
-      // Get the keywords for the selected category, fallback to just the category name if not found
-      const keywords = categoryKeywords[selectedCategory] || [selectedCategory];
+  // Vector Search API Effect
+  useEffect(() => {
+    const fetchSemanticSearch = async () => {
+      if (!debouncedQuery.trim()) {
+        setSearchResults([]);
+        setIsSearching(false);
+        return;
+      }
       
+      setIsSearching(true);
+      try {
+        const res = await fetch("/api/search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: debouncedQuery, category: selectedCategory }),
+        });
+        
+        if (!res.ok) {
+          const errorText = await res.text();
+          throw new Error(`Search failed: ${res.status} - ${errorText}`);
+        }
+        
+        const { data } = await res.json();
+        setSearchResults(data || []);
+      } catch (error) {
+        console.error("Vector search error:", error);
+      } finally {
+        setIsSearching(false);
+      }
+    };
+
+    fetchSemanticSearch();
+  }, [debouncedQuery, selectedCategory]);
+
+  // Display Logic: Use API results if searching, otherwise use local category filter
+  const filteredAnnouncements = useMemo(() => {
+    // If a search query is active, return the AI vector results
+    if (debouncedQuery.trim()) {
+      return searchResults;
+    }
+
+    // Otherwise, default back to the normal local category filter
+    let result = announcements;
+    if (selectedCategory !== "全校") {
+      const keywords = categoryKeywords[selectedCategory] || [selectedCategory];
       result = result.filter((item) => {
         const attachmentNames = item.attach_file_link ? item.attach_file_link.map(a => a.name).join(" ") : "";
         const searchableText = `${item.tag || ""} ${item.title} ${item.content || ""} ${attachmentNames}`.toLowerCase();
-        
-        // Return true if AT LEAST ONE keyword from the dictionary exists in the announcement text
         return keywords.some((keyword) => searchableText.includes(keyword.toLowerCase()));
       });
     }
 
-    // Filter by Text Search Bar
-    if (searchQuery.trim()) {
-      const searchTerms = searchQuery.toLowerCase().split(/\s+/);
-      result = result.filter((item) => {
-        const attachmentNames = item.attach_file_link ? item.attach_file_link.map(a => a.name).join(" ") : "";
-        const searchableText = `${item.title} ${item.content || ""} ${item.unit} ${attachmentNames}`.toLowerCase();
-        return searchTerms.every((term) => searchableText.includes(term));
-      });
-    }
-
     return result;
-  }, [announcements, searchQuery, selectedCategory]);
+  }, [announcements, searchResults, debouncedQuery, selectedCategory]);
 
   // --- Pagination Logic ---
   // Reset to page 1 whenever the user types a new search query
@@ -164,14 +198,18 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
       
       {/* Data Loading / Empty State / Render List */}
       <div className="space-y-4 pt-2">
-        {isLoading ? (
+        {isLoading || isSearching ? (
           <div className="flex flex-col items-center justify-center py-12 text-neutral-400">
             <Loader2 className="w-6 h-6 animate-spin mb-2" />
-            <p className="text-sm">載入公告中...</p>
+            <p className="text-sm">{isSearching ? "搜尋中..." : "載入公告中..."}</p>
           </div>
         ) : filteredAnnouncements.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-neutral-400 bg-neutral-50 rounded-2xl border border-dashed border-neutral-200">
-            <p className="text-sm">找不到符合「{searchQuery}」的公告</p>
+            <p className="text-sm">
+              {searchQuery.trim() 
+                ? `找不到符合「${searchQuery}」的公告` 
+                : "此分類目前無公告"}
+            </p>
           </div>
         ) : (
           <>
