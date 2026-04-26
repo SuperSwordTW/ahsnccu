@@ -114,7 +114,7 @@ export default function MobileFrontPage() {
           <div className="flex flex-col items-center justify-center space-y-2 text-xs text-neutral-400">
             <p>國立政治大學附屬高級中學 © {new Date().getFullYear()}</p>
             <p>開發者: 林子宸</p>
-            <p>協助開發: 鄭宇宸、鄭宇翔、楊紹玄</p>
+            <p>協助開發: 鄭宇宸、楊紹玄</p>
           </div>
         </footer>
       </motion.div>
