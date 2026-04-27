@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/header_pic.jpg",
-        width: 1200,
-        height: 630,
+        width: 1181,
+        height: 438,
         alt: "國立政治大學附屬高級中學",
       },
     ],
