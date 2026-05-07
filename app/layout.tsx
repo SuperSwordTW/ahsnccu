@@ -12,8 +12,8 @@ const siteFont = LXGW_WenKai_TC({
 });
 
 export const metadata: Metadata = {
-  title: "政大附中學生網站 | 國立政治大學附屬高級中學 (AHSNCCU)",
-  description: "政大附中官方學生資訊平台。提供最新校園公告、各年級分類資訊、學生專區及校園行事曆。",
+  title: "政大附中網站 | 國立政治大學附屬高級中學 (AHSNCCU)",
+  description: "政大附中學生資訊平台。提供最新公告、各年級分類資訊、學生專區及行事曆。",
   keywords: ["政大附中", "國立政治大學附屬高級中學", "AHSNCCU", "政大附中學生網站", "校園公告", "學生專區", "行事曆", "政大附中公告", "政大附中學生專區", "政大附中行事曆", "政大附中官網", "政大附中網站"],
   metadataBase: new URL(
   process.env.NODE_ENV === 'production'
@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     : `http://localhost:${process.env.PORT || 3000}`
   ),
   openGraph: {
-    title: "政大附中學生網站 | 國立政治大學附屬高級中學 (AHSNCCU)",
-    description: "政大附中官方學生資訊平台。提供最新校園公告、學生專區及校園行事曆。",
+    title: "政大附中網站 | 國立政治大學附屬高級中學 (AHSNCCU)",
+    description: "政大附中學生資訊平台。提供最新公告、學生專區及行事曆。",
     url: "/",
-    siteName: "政大附中學生網站",
+    siteName: "政大附中網站",
     locale: "zh_TW",
     type: "website",
   },
