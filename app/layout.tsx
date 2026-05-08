@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   keywords: ["政大附中", "國立政治大學附屬高級中學", "AHSNCCU", "政大附中學生網站", "校園公告", "學生專區", "行事曆", "政大附中公告", "政大附中學生專區", "政大附中行事曆", "政大附中官網", "政大附中網站"],
   metadataBase: new URL(
   process.env.NODE_ENV === 'production'
-    ? 'https://ahsnccu.vercel.app' // <-- Change this to your actual custom domain
+    ? 'https://ahsnccu.vercel.app'
     : process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : `http://localhost:${process.env.PORT || 3000}`
@@ -32,6 +32,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
 };
 
