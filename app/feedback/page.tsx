@@ -108,7 +108,7 @@ export default function FeedbackPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium text-neutral-900">
                 {category === "使用體驗" ? "瀏覽網頁順暢嗎? 你認為哪裡設計上需要修正?" :
-                 category === "功能建議" ? "你認為此網站還需要什麼功能能更方便?" :
+                 category === "功能建議" ? "你認為此網站還需要什麼功能會更方便?" :
                  category === "錯誤回報" ? "發生了怎麼樣的錯誤? 請詳細說明錯誤如何產生。" :
                  category === "其他" ? "請詳細說明您的意見。" :
                  "意見內容"}
