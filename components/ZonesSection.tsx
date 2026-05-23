@@ -1,4 +1,3 @@
-import { motion, Variants } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -17,15 +16,9 @@ const zones = [
   { name: "公文系統", url: "https://ahs.speedodm.com/SPEED30/Account/Login" },
 ];
 
-// Define variants if you want them to be specific to this component
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 15 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
-};
-
 export default function ZonesSection() {
   return (
-    <motion.div variants={itemVariants} className="md:col-span-1 lg:col-span-3 space-y-4">
+    <div className="w-full space-y-4">
       <div className="flex items-center justify-between px-1 mt-4 md:mt-0">
         <h2 className="text-lg font-medium flex items-center gap-2 text-neutral-800">
           <span className="w-2 h-2 rounded-none bg-neutral-400 transform rotate-45" /> 常用專區
@@ -64,6 +57,6 @@ export default function ZonesSection() {
             ))}
         </div>
       </Card>
-    </motion.div>
+    </div>
   );
 }

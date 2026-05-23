@@ -10,9 +10,18 @@ import HeroSection from "@/components/HeroSection";
 import NavigationMenu from "@/components/NavigationMenu";
 
 // Optimization: Dynamically import components below the fold or reliant on heavy fetching
-const AnnouncementSection = dynamic(() => import("@/components/AnnouncementSection"), { ssr: false });
-const ZonesSection = dynamic(() => import("@/components/ZonesSection"));
-const CalendarSection = dynamic(() => import("@/components/CalendarSection"), { ssr: false });
+const AnnouncementSection = dynamic(() => import("@/components/AnnouncementSection"), { 
+  ssr: false,
+  loading: () => <div className="min-h-[500px] w-full animate-pulse bg-neutral-100/50 rounded-2xl" />
+});
+const ZonesSection = dynamic(() => import("@/components/ZonesSection"), {
+  ssr: false,
+  loading: () => <div className="min-h-[300px] w-full animate-pulse bg-neutral-100/50 rounded-2xl" />
+});
+const CalendarSection = dynamic(() => import("@/components/CalendarSection"), { 
+  ssr: false,
+  loading: () => <div className="min-h-[400px] w-full animate-pulse bg-neutral-100/50 rounded-2xl" />
+});
 
 const categories = ["全校", "高三", "高二", "高一", "國三", "國二", "國一"];
 

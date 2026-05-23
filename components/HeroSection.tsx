@@ -69,6 +69,7 @@ export default function HeroSection() {
               src="/header_pic.jpg" // Put your image in the /public folder
               alt="Background"
               fill
+              sizes="100vw"
               className="object-cover" // Grayscale keeps it professional
               priority
             />
@@ -86,6 +87,7 @@ export default function HeroSection() {
                 src="/icon.jpg" 
                 alt="School Logo"
                 fill
+                sizes="(max-width: 768px) 128px, 192px"
                 className="object-cover rounded-[2rem] md:rounded-[2.5rem]" 
                 priority
               />

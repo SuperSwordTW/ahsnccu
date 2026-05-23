@@ -198,9 +198,9 @@ export default function AnnouncementSection({ selectedCategory }: AnnouncementSe
       </div>
       
       {/* Data Loading / Empty State / Render List */}
-      <div className="space-y-4 pt-2">
+      <div className="space-y-4 pt-2 min-h-[600px]">
         {isLoading || isSearching ? (
-          <div className="flex flex-col items-center justify-center py-12 text-neutral-400">
+          <div className="flex flex-col items-center justify-center h-full py-24 text-neutral-400">
             <Loader2 className="w-6 h-6 animate-spin mb-2" />
             <p className="text-sm">{isSearching ? "搜尋中..." : "載入公告中..."}</p>
           </div>

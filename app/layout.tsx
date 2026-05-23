@@ -9,6 +9,7 @@ const siteFont = LXGW_WenKai_TC({
   subsets: ["latin"],
   weight: ["300", "400", "700"],
   variable: "--font-noto-sans-tc",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
