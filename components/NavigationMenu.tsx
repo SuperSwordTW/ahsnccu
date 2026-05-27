@@ -19,6 +19,7 @@ const menuItems = [
   { label: "常用專區", href: "#zones" },
   { label: "行事曆", href: "#calendar" },
   { label: "認識政附", href: "/intro" },
+  { label: "學生作品", href: "/projects" },
   { label: "意見回饋", href: "/feedback" },
 ];
 
